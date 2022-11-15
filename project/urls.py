@@ -14,8 +14,11 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.conf import settings
+from django.conf.urls.static import static
 from django.urls import path
-from blog.views import index as blog_index, PostList, PostCrear, PostBorrar, PostActualizar, BlogLogin, BlogLogout #SearchPostByName
+from blog.views import (index as blog_index, PostList, PostCrear, PostBorrar, PostActualizar,
+                                 BlogLogin, BlogLogout, SearchPostByName, DetailPost)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,7 +27,11 @@ urlpatterns = [
     path('blog/crear', PostCrear.as_view()), # NUEVA RUTA PARA LISTAR FAMILIAR
     path('blog/<int:pk>/borrar', PostBorrar.as_view(), name="familiar-borrar"), # NUEVA RUTA PARA LISTAR FAMILIAR
     path('blog/<int:pk>/actualizar', PostActualizar.as_view(), name='familiar-actualizar'), 
-    #path('search-by-name/', SearchPostByName.as_view(), name="search-by-name-post"),
+    path('search-by-name/', SearchPostByName.as_view(), name="search-by-name-post"),
     path('login/', BlogLogin.as_view(), name="blog-login"),
     path('logout/', BlogLogout.as_view(), name="blog-logout"),
+    path('detail/<int:pk>/', DetailPost.as_view(), name="detail-post"),
 ]
+
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

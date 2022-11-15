@@ -7,12 +7,7 @@
     <title>Document</title>
 </head>
 <body>
-
-    <form enctype='multipart/form-data' method="post">
-        {% csrf_token %}
-        {{form.as_p}}
-        <input type="submit" value="agregar">
-    </form>
-
+    {{object}}
+    <img height="255" src="{{ object.imagen.url }}"/>
 </body>
 </html>
